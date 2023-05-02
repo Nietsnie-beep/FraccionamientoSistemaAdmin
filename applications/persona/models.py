@@ -15,6 +15,44 @@ Tipo_pago = [
     (1, 'efectivo'),
     (2, 'Tarjeta')
 ]
+
+estatus_pago = [
+    (1, 'No pagado'),
+    (2, 'Pagado'),
+    (4, 'otros')
+]
+Concepto_pagos = [
+    (1, 'Cuotas'),
+    (2, 'Penalizacion'),
+    (3, 'Multas'),
+    (4, 'otros'),
+    (5, 'pendiente'),
+]
+
+
+class Pagos_pendientes(TimeStampedModel):
+    nombre = models.CharField(max_length=50)
+    # casa = models.ForeignKey(Person, verbose_name="Casa", on_delete=models.PROTECT)
+    cantidad = models.IntegerField()
+    fecha_vencimiento = models.DateField()
+    concepto = models.IntegerField (
+        choices=Concepto_pagos,
+        default=5
+        )
+    recargo = models.IntegerField()
+    estatus = models.IntegerField(
+        choices=estatus_pago,
+        default=1
+    )
+
+    class Meta:
+        verbose_name = 'Pago'
+        verbose_name_plural = 'Pagos'
+    
+    def __str__(self):
+        return self.nombre
+    
+
 class Person(TimeStampedModel):
     """  Modelo para registrar casas de una agenda  """
 
@@ -71,6 +109,8 @@ class Person(TimeStampedModel):
         max_length=150,
         blank=True
     )
+
+    pagos = models.ManyToManyField(Pagos_pendientes)
 
     class Meta:
         verbose_name = 'Persona'
@@ -147,44 +187,8 @@ class Gastos(TimeStampedModel):
     def __str__(self):
         return str(self.provedor) + ' ' + self.concepto
     
-Concepto_pagos = [
-    (1, 'Cuotas'),
-    (2, 'Penalizacion'),
-    (3, 'Multas'),
-    (4, 'otros'),
-    (5, 'pendiente'),
 
-]
 
-estatus_pago = [
-    (1, 'Recargo'),
-    (2, 'Pagado'),
-    (4, 'otros')
-]
-
-#?????
-class Pagos_pendientes(TimeStampedModel):
-    nombre = models.CharField(max_length=50)
-    casa = models.ForeignKey(Person, verbose_name="Casa", on_delete=models.PROTECT)
-    cantidad = models.IntegerField()
-    fecha_vencimiento = models.DateField()
-    concepto = models.IntegerField (
-        choices=Concepto_pagos,
-        default=5
-        )
-    recargo = models.IntegerField()
-    estatus = models.IntegerField(
-        choices=estatus_pago,
-        default=1
-    )
-
-    class Meta:
-        verbose_name = 'Pago'
-        verbose_name_plural = 'Pagos'
-    
-    def __str__(self):
-        return str(self.casa.Numero) + ' ' + self.nombre
-    
 class Area_comun(models.Model):
     nombre = models.CharField(max_length=120);
     apertura = models.TimeField()
