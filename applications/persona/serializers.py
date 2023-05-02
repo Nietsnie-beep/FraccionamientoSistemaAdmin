@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Person, Carros,Provedor, Gastos, Area_comun, reserva
+from .models import Person, Carros,Provedor, Gastos, Area_comun, reserva,Pagos_pendientes
 
 class PersonSerializers(serializers.ModelSerializer):
     class Meta:
@@ -31,4 +31,9 @@ class Area_comunSerializers(serializers.ModelSerializer):
 class reservaSerializers(serializers.ModelSerializer):
     class Meta:
         model = reserva
+        fields = '__all__'
+
+class Pagos_pendientesSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Pagos_pendientes
         fields = '__all__'

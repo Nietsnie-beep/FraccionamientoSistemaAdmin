@@ -3,9 +3,9 @@ from django.views.generic import ListView
 
 from rest_framework import generics
 
-from .models import Person, Carros, Provedor, Gastos, Area_comun, reserva
+from .models import Person, Carros, Provedor, Gastos, Area_comun, reserva,Pagos_pendientes
 
-from .serializers import PersonSerializers, CarroSerializers, ProvedorSerializers,GastosSerializers, Area_comunSerializers, reservaSerializers
+from .serializers import PersonSerializers, CarroSerializers, ProvedorSerializers,GastosSerializers, Area_comunSerializers, reservaSerializers, Pagos_pendientesSerializers
 
 #####____________casa_______________________#####
 class ListPersons(ListView): 
@@ -175,3 +175,28 @@ class reservaDeleteView(generics.DestroyAPIView):
 class reservaUpdateView(generics.RetrieveUpdateAPIView):
     serializer_class = reservaSerializers
     queryset = reserva.objects.all()
+
+
+#_________________________Pagos_pendientes________________________________#
+class Pagos_pendientesListApiView(generics.ListAPIView):
+
+    serializer_class = Pagos_pendientesSerializers
+
+    def get_queryset(self):
+        return Pagos_pendientes.objects.all()
+    
+class Pagos_pendientesCreateView(generics.CreateAPIView):
+    serializer_class = Pagos_pendientesSerializers
+
+class Pagos_pendientesDetailView(generics.RetrieveAPIView):    
+    serializer_class = Pagos_pendientesSerializers
+    queryset = Pagos_pendientes.objects.filter()
+
+class Pagos_pendientesDeleteView(generics.DestroyAPIView):
+    serializer_class = Pagos_pendientesSerializers
+    queryset = Pagos_pendientes.objects.all()
+
+
+class Pagos_pendientesUpdateView(generics.RetrieveUpdateAPIView):
+    serializer_class = Pagos_pendientesSerializers
+    queryset = Pagos_pendientes.objects.all()

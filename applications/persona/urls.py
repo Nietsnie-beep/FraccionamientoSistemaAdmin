@@ -176,6 +176,34 @@ urlpatterns = [
     'api/reserva/update/<pk>/',
     views.reservaUpdateView.as_view()
     ),
+
+
+        ##________________Pagos_pendientes________________##
+
+      path(
+    'api/Pagos_pendientes/list',
+    views.Pagos_pendientesListApiView.as_view()
+    ),
+
+     path(
+    'api/Pagos_pendientes/create',
+    views.Pagos_pendientesCreateView.as_view()
+    ),
+
+      path(
+    'api/Pagos_pendientes/detail/<pk>/',
+    views.Pagos_pendientesDetailView.as_view()
+    ),
+
+       path(
+    'api/Pagos_pendientes/delete/<pk>/',
+    views.Pagos_pendientesDeleteView.as_view()
+    ),
+
+        path(
+    'api/Pagos_pendientes/update/<pk>/',
+    views.Pagos_pendientesUpdateView.as_view()
+    ),
 ]
 
 
